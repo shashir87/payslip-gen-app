@@ -28,6 +28,7 @@
                 <value>org.nthdimenzion.security.domain</value>
                 <value>com.simplepersoncrud.domain</value>
                 <value>com.librarymanagement.domain</value>
+                <value>com.payslip.domain</value>
             </list>
         </property>
         <property name="hibernateProperties">
