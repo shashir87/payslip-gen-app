@@ -6,8 +6,10 @@ import org.joda.money.CurrencyUnit;
 import org.joda.money.Money;
 import org.nthdimenzion.crud.ICrudEntity;
 import org.nthdimenzion.ddd.domain.IdGeneratingArcheType;
+import org.nthdimenzion.ddd.domain.Interval;
 
 import javax.persistence.Column;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
 import java.util.Set;
@@ -24,14 +26,26 @@ public class PaySlip extends IdGeneratingArcheType implements ICrudEntity{
     private Set<Income> incomes;
     private Set<Deduction> deductions;
     private Money netSalary;
+    private Interval paySlipPeriod;
 
     PaySlip() {
     }
 
-    public PaySlip(PaySlipTemplate paySlipTemplate) {
+    public PaySlip(PaySlipTemplate paySlipTemplate, Interval paySlipPeriod) {
         this.setIncomes(paySlipTemplate.getIncomes());
         this.setDeductions(paySlipTemplate.getDeductions());
         this.setNetSalary(paySlipTemplate.getNetSalary());
+        this.setPaySlipPeriod(paySlipPeriod);
+    }
+
+
+    @Embedded
+    Interval getPaySlipPeriod() {
+        return paySlipPeriod;
+    }
+
+    void setPaySlipPeriod(Interval paySlipPeriod) {
+        this.paySlipPeriod = paySlipPeriod;
     }
 
 
@@ -67,4 +81,6 @@ public class PaySlip extends IdGeneratingArcheType implements ICrudEntity{
         netSalary =  Money.zero(CurrencyUnit.USD);
         return netSalary;
     }
+
+
 }

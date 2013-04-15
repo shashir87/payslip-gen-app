@@ -5,7 +5,10 @@ import org.nthdimenzion.crud.ICrudEntity;
 import org.nthdimenzion.ddd.domain.IdGeneratingArcheType;
 
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import java.util.Set;
 
 /**
  * Created by IntelliJ IDEA.
@@ -29,6 +32,8 @@ public class Employee extends IdGeneratingArcheType implements ICrudEntity {
     private int leavesTaken;
 
     private PaySlipTemplate paySlipTemplate;
+
+    private Set<PaySlip> paySlips;
 
     public String getFirstName() {
         return firstName;
@@ -125,5 +130,15 @@ public class Employee extends IdGeneratingArcheType implements ICrudEntity {
 
     public void setPaySlipTemplate(PaySlipTemplate paySlipTemplate) {
         this.paySlipTemplate = paySlipTemplate;
+    }
+
+    @OneToMany
+    @JoinColumn(name = "EMPLOYEE_ID")
+    public Set<PaySlip> getPaySlips() {
+        return paySlips;
+    }
+
+    public void setPaySlips(Set<PaySlip> paySlips) {
+        this.paySlips = paySlips;
     }
 }
